@@ -1,0 +1,40 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+  user_login_exists_error: '{"error":"User already exists"}'
+  user_login_not_found_error: '{"error":"Wrong login/password combination"}'
+  group_create_exists: '{"error":"Group already exists"}'
+  group_fetch_error: '{"error":"No groups found"}'
+  group_add_user_invite_success: '{"result":"User was successfully invited to group"}'
+  group_add_user_error: '{"error":"User already in group"}'
+  group_add_user_no_user: '{"error":"No user found"}'
+  group_add_user_success: '{"result":"Added to the group!"}'
+  group_send_message_success: '{"result":"Message sent successfully"}'
+  group_remove_user_success: '{"result":"User was successfully removed from group"}'
+  group_remove_user_error: '{"error":"No such user in group"}'
+  user_fcm_token_success: '{"result":"Token saved successfully"}'
+  user_fcm_token_error: '{"error":"No user found for this token"}'
+  pn_send_success: '{"result":"Notification sent"}'
+  user_pn_error_no_user: '{"error":"Error while sending notification"}'
+  fcm_key: 'AIzaSyCitBfvTc5xAldfr4TrIjrEWS8EdI9_sCI'
+  group_pn_error_no_group: '{"error":"Error while sending notification"}'
+  group_port_busy_error: '{"error":"No available rooms"}'
