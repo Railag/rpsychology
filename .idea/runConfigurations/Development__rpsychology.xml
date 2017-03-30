@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Development: rcoback" type="RailsRunConfigurationType" factoryName="Rails">
+  <configuration default="false" name="Development: rpsychology" type="RailsRunConfigurationType" factoryName="Rails">
     <predefined_log_file id="RUBY_RAILS_SERVER" enabled="true" />
     <module name="untitled2" />
     <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
