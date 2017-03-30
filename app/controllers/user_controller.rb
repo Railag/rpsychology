@@ -21,6 +21,23 @@ class UserController < ApplicationController
     end
   end
 
+  def update
+    begin
+      user = User.find_by_id(update_params[:user_id])
+      if user.blank?
+        render json: t(:user_pn_error_no_user)
+        return
+      end
+      user.email = update_params[:email]
+      user.age = update_params[:age]
+      user.time = update_params[:time]
+      user.save
+      render json: user_response(user)
+    rescue ActiveRecord::RecordNotUnique
+      render json: t(:user_login_exists_error)
+    end
+  end
+
   def login #password
     if params[:password].blank?
       render json: t(:user_login_not_found_error)
@@ -151,12 +168,17 @@ class UserController < ApplicationController
 
   private
   def user_response(user)
-    user.as_json(:only => [:id, :idd, :login, :token, :email])
+    user.as_json(:only => [:id, :login, :token, :email, :age, :time])
   end
 
   private
   def permitted_params
-    params.permit(:login, :password, :email, :token)
+    params.permit(:login, :password, :email, :age, :time, :token)
+  end
+
+  private
+  def update_params
+    params.permit(:user_id, :email, :age, :time)
   end
 
   private

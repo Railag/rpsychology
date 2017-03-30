@@ -20,13 +20,13 @@ Rails.application.routes.draw do
 
   scope '/user', controller: 'user' do
     get '/get', action: 'get'
+    post '/update', action:'update'
     post '/login', action: 'login'
     post '/startup_login', action: 'startup_login'
     post '/fcm_token', action: 'fcm_token'
     post '/send_pns_to_group', action: 'send_pns_to_group'
     post '/send_pns_to_everyone', action: 'send_pns_to_everyone'
     post '/', action: 'create'
-    put '/:id', action: 'update'
     delete '/:id', action: 'destroy'
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160610090643) do
+ActiveRecord::Schema.define(version: 20170125132408) do
 
   create_table "group_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "group_id"
@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 20160610090643) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "fcm_token"
+    t.integer  "age"
+    t.integer  "time"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["login"], name: "index_users_on_login", unique: true, using: :btree
   end

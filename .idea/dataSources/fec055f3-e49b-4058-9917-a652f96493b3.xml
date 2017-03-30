@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="Rails untitled2: development">
+<dataSource name="Rails untitled2: production">
   <database-model serializer="dbm" rdbms="MYSQL" format-version="4.0">
     <root id="1"/>
-    <schema id="2" parent="1" name="rcoback">
+    <schema id="2" parent="1" name="rpsychology">
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
     <schema id="3" parent="1" name="information_schema"/>
     <schema id="4" parent="1" name="mysql"/>
     <schema id="5" parent="1" name="performance_schema"/>
-    <schema id="6" parent="1" name="sakila"/>
-    <schema id="7" parent="1" name="sys"/>
-    <schema id="8" parent="1" name="untitled1_development"/>
-    <schema id="9" parent="1" name="world"/>
-    <schema id="10" parent="1" name="rpsychology">
-      <Current>1</Current>
-    </schema>
+    <schema id="6" parent="1" name="rcoback"/>
+    <schema id="7" parent="1" name="sakila"/>
+    <schema id="8" parent="1" name="sys"/>
+    <schema id="9" parent="1" name="untitled1_development"/>
+    <schema id="10" parent="1" name="world"/>
     <table id="11" parent="2" name="ar_internal_metadata"/>
     <table id="12" parent="2" name="group_users"/>
     <table id="13" parent="2" name="groups"/>
