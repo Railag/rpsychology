@@ -8,8 +8,9 @@
       </database-info>
       <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
       <user-name>rco</user-name>
-      <user-password>dfd8dfc9dfc5</user-password>
+      <introspection-schemas>*:rpsychology</introspection-schemas>
       <resolve-scope>rpsychology:</resolve-scope>
+      <unqualified-resolve-schemas>rpsychology:</unqualified-resolve-schemas>
     </data-source>
     <data-source name="Rails untitled2: production" uuid="fec055f3-e49b-4058-9917-a652f96493b3">
       <database-info product="MySQL" version="5.7.11-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
@@ -18,8 +19,9 @@
       </database-info>
       <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
       <user-name>rco</user-name>
-      <user-password>df96df8fdf97df8adfefdfe4dffcdff1df8ddfffdfe4dffedfe3dffedfe6dfefdfeedf98dff5dfeedfebdffedfebdfe8dfebdff9dfefdff5dffadfebdff9dff9dffddfe5dff8dfeedf8ddff7df8adf8fdf94</user-password>
+      <introspection-schemas>*:rpsychology</introspection-schemas>
       <resolve-scope>rpsychology:</resolve-scope>
+      <unqualified-resolve-schemas>rpsychology:</unqualified-resolve-schemas>
     </data-source>
     <data-source name="Rails untitled2: development" uuid="6efbe034-40f2-4d58-92fa-56481ba25951">
       <database-info product="MySQL" version="5.7.11-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
@@ -28,8 +30,9 @@
       </database-info>
       <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
       <user-name>rco</user-name>
-      <user-password>dfd8dfc9dfc5</user-password>
+      <introspection-schemas>*:rcoback</introspection-schemas>
       <resolve-scope>*:rcoback</resolve-scope>
+      <unqualified-resolve-schemas>*:rcoback</unqualified-resolve-schemas>
     </data-source>
   </component>
 </project>
