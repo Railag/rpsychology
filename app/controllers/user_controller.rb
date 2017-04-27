@@ -1,7 +1,7 @@
 class UserController < ApplicationController
   include BCrypt
 
-  protect_from_forgery except: [:create, :login, :startup_login, :fcm_token, :send_pns_to_everyone, :send_pns_to_group]
+  protect_from_forgery except: [:create, :login, :startup_login, :results_reaction, :results_stress, :fcm_token, :send_pns_to_everyone, :send_pns_to_group]
 
   before_action :generate_authentication_token, only: :create
   before_action :encrypt_password, only: :create
@@ -18,6 +18,20 @@ class UserController < ApplicationController
       render json: user_response(new_user)
     rescue ActiveRecord::RecordNotUnique
       render json: t(:user_login_exists_error)
+    end
+  end
+
+  def results_reaction
+    begin
+      new_result = ReactionResult.create(reaction_params)
+      render json: t(:results_saved_ok)
+    end
+  end
+
+  def results_stress
+    begin
+      new_result = StressResult.create(stress_params)
+      render json: t(:results_saved_ok)
     end
   end
 
@@ -164,6 +178,16 @@ class UserController < ApplicationController
   private
   def fcm_token_params
     params.permit(:user_id, :fcm_token)
+  end
+
+  private
+  def reaction_params
+    params.permit(:user_id, :times => [])
+  end
+
+  private
+  def stress_params
+    params.permit(:user_id, :misses, :times => [])
   end
 
   private

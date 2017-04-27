@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170125132408) do
+ActiveRecord::Schema.define(version: 20170427120859) do
 
   create_table "group_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "group_id"
@@ -34,6 +34,21 @@ ActiveRecord::Schema.define(version: 20170125132408) do
     t.datetime "updated_at", null: false
     t.integer  "user_id"
     t.integer  "group_id"
+  end
+
+  create_table "reaction_results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "times"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+  end
+
+  create_table "stress_results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "user_id"
+    t.integer  "misses"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.text     "times",      limit: 65535
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
