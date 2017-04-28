@@ -11,7 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170427120859) do
+ActiveRecord::Schema.define(version: 20170428152226) do
+
+  create_table "complex_results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "user_id"
+    t.integer  "wins"
+    t.integer  "fails"
+    t.integer  "misses"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "focusing_results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "user_id"
+    t.text     "times",        limit: 65535
+    t.text     "error_values", limit: 65535
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
 
   create_table "group_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "group_id"
@@ -43,6 +60,15 @@ ActiveRecord::Schema.define(version: 20170427120859) do
     t.integer  "user_id"
   end
 
+  create_table "stability_results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "user_id"
+    t.text     "times",        limit: 65535
+    t.integer  "errors_value"
+    t.integer  "misses"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
   create_table "stress_results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id"
     t.integer  "misses"
@@ -63,6 +89,15 @@ ActiveRecord::Schema.define(version: 20170427120859) do
     t.integer  "time"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["login"], name: "index_users_on_login", unique: true, using: :btree
+  end
+
+  create_table "volume_results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "user_id"
+    t.integer  "wins"
+    t.integer  "fails"
+    t.integer  "misses"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

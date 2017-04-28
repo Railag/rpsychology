@@ -1,7 +1,7 @@
 class UserController < ApplicationController
   include BCrypt
 
-  protect_from_forgery except: [:create, :login, :startup_login, :results_reaction, :results_stress, :fcm_token, :send_pns_to_everyone, :send_pns_to_group]
+  protect_from_forgery except: [:create, :login, :startup_login, :results_reaction, :results_volume, :results_complex, :results_stability, :results_focusing, :results_stress, :fcm_token, :send_pns_to_everyone, :send_pns_to_group]
 
   before_action :generate_authentication_token, only: :create
   before_action :encrypt_password, only: :create
@@ -31,6 +31,34 @@ class UserController < ApplicationController
   def results_stress
     begin
       new_result = StressResult.create(stress_params)
+      render json: t(:results_saved_ok)
+    end
+  end
+
+  def results_focusing
+    begin
+      new_result = FocusingResult.create(focusing_params)
+      render json: t(:results_saved_ok)
+    end
+  end
+
+  def results_stability
+    begin
+      new_result = StabilityResult.create(stability_params)
+      render json: t(:results_saved_ok)
+    end
+  end
+
+  def results_complex
+    begin
+      new_result = ComplexResult.create(complex_params)
+      render json: t(:results_saved_ok)
+    end
+  end
+
+  def results_volume
+    begin
+      new_result = VolumeResult.create(volume_params)
       render json: t(:results_saved_ok)
     end
   end
@@ -188,6 +216,26 @@ class UserController < ApplicationController
   private
   def stress_params
     params.permit(:user_id, :misses, :times => [])
+  end
+
+  private
+  def focusing_params
+    params.permit(:user_id, :times => [], :error_values => [])
+  end
+
+  private
+  def stability_params
+    params.permit(:user_id, :errors_value, :misses, :times => [])
+  end
+
+  private
+  def complex_params
+    params.permit(:user_id, :wins, :fails, :misses)
+  end
+
+  private
+  def volume_params
+    params.permit(:user_id, :wins, :fails, :misses)
   end
 
   private
