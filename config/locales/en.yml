@@ -26,7 +26,7 @@ en:
   group_fetch_error: '{"error":"No groups found"}'
   group_add_user_invite_success: '{"result":"User was successfully invited to group"}'
   group_add_user_error: '{"error":"User already in group"}'
-  group_add_user_no_user: '{"error":"No user found"}'
+  no_user_found: '{"error":"No user found"}'
   group_add_user_success: '{"result":"Added to the group!"}'
   group_send_message_success: '{"result":"Message sent successfully"}'
   group_remove_user_success: '{"result":"User was successfully removed from group"}'

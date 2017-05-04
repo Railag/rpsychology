@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     post '/results_stability', action: 'results_stability'
     post '/results_complex', action: 'results_complex'
     post '/results_volume', action: 'results_volume'
+    post '/statistics', action: 'statistics'
     post '/send_pns_to_group', action: 'send_pns_to_group'
     post '/send_pns_to_everyone', action: 'send_pns_to_everyone'
     post '/', action: 'create'

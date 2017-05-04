@@ -34,7 +34,7 @@ class GroupController < ApplicationController
     user = User.find_by(login: login)
 
     if user.blank? # TODO add email user search
-      render json: t(:group_add_user_no_user)
+      render json: t(:no_user_found)
       return
     end
 
@@ -77,7 +77,7 @@ class GroupController < ApplicationController
 
     login = params_for_remove_user[:login]
     if login.blank?
-      render json: t(:group_add_user_no_user)
+      render json: t(:no_user_found)
       return
     end
 

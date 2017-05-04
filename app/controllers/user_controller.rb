@@ -1,7 +1,7 @@
 class UserController < ApplicationController
   include BCrypt
 
-  protect_from_forgery except: [:create, :login, :startup_login, :results_reaction, :results_volume, :results_complex, :results_stability, :results_focusing, :results_stress, :fcm_token, :send_pns_to_everyone, :send_pns_to_group]
+  protect_from_forgery except: [:create, :login, :startup_login, :statistics, :results_reaction, :results_volume, :results_complex, :results_stability, :results_focusing, :results_stress, :fcm_token, :send_pns_to_everyone, :send_pns_to_group]
 
   before_action :generate_authentication_token, only: :create
   before_action :encrypt_password, only: :create
@@ -18,6 +18,32 @@ class UserController < ApplicationController
       render json: user_response(new_user)
     rescue ActiveRecord::RecordNotUnique
       render json: t(:user_login_exists_error)
+    end
+  end
+
+  def statistics
+    begin
+      user = User.find_by_id(statistics_params[:user_id])
+      if user.blank?
+        render json: t(:no_user_found)
+        return
+      end
+
+      r1 = ReactionResult.where(user_id: user.id).to_a
+      r2 = ComplexResult.where(user_id: user.id).to_a
+      r3 = VolumeResult.where(user_id: user.id).to_a
+      r4 = FocusingResult.where(user_id: user.id).to_a
+      r5 = StabilityResult.where(user_id: user.id).to_a
+      r6 = StressResult.where(user_id: user.id).to_a
+
+      render json: {reaction_results: r1.as_json(:except => [:user_id, :created_at, :updated_at]),
+                    complex_results: r2.as_json(:except => [:user_id, :created_at, :updated_at]),
+                    volume_results: r3.as_json(:except => [:user_id, :created_at, :updated_at]),
+                    focusing_results: r4.as_json(:except => [:user_id, :created_at, :updated_at]),
+                    stability_results: r5.as_json(:except => [:user_id, :created_at, :updated_at]),
+                    stress_results: r6.as_json(:except => [:user_id, :created_at, :updated_at])}
+    #rescue ActiveRecord::RecordNotUnique
+    #  render json: t(:user_login_exists_error)
     end
   end
 
@@ -251,6 +277,11 @@ class UserController < ApplicationController
   private
   def update_params
     params.permit(:user_id, :email, :age, :time)
+  end
+
+  private
+  def statistics_params
+    params.permit(:user_id)
   end
 
   private
