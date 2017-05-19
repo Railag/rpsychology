@@ -20,8 +20,8 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  user_login_exists_error: '{"error":"User already exists"}'
-  user_login_not_found_error: '{"error":"Wrong login/password combination"}'
+  user_login_exists_error: '{"error":"Пользователь с таким логином уже зарегистрирован"}'
+  user_login_not_found_error: '{"error":"Некорректная комбинация логина и пароля"}'
   group_create_exists: '{"error":"Group already exists"}'
   group_fetch_error: '{"error":"No groups found"}'
   group_add_user_invite_success: '{"result":"User was successfully invited to group"}'
@@ -38,4 +38,4 @@ en:
   fcm_key: 'AIzaSyCitBfvTc5xAldfr4TrIjrEWS8EdI9_sCI'
   group_pn_error_no_group: '{"error":"Error while sending notification"}'
   group_port_busy_error: '{"error":"No available rooms"}'
-  results_saved_ok: '{"result":"Results saved successfully"}'
+  results_saved_ok: '{"result":"Успешно обновлено"}'
