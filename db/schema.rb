@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170428152226) do
+ActiveRecord::Schema.define(version: 20180214072711) do
 
   create_table "complex_results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id"
@@ -22,6 +22,15 @@ ActiveRecord::Schema.define(version: 20170428152226) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "english_results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "user_id"
+    t.integer  "errors_value"
+    t.text     "times",        limit: 65535
+    t.text     "words",        limit: 65535
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
   create_table "focusing_results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id"
     t.text     "times",        limit: 65535
@@ -30,34 +39,11 @@ ActiveRecord::Schema.define(version: 20170428152226) do
     t.datetime "updated_at",                 null: false
   end
 
-  create_table "group_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "group_id"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "user_id"
-    t.index ["title"], name: "index_groups_on_title", unique: true, using: :btree
-  end
-
-  create_table "messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "user_id"
-    t.integer  "group_id"
-  end
-
   create_table "reaction_results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "times"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.text     "times",      limit: 65535
     t.integer  "user_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "stability_results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -70,11 +56,11 @@ ActiveRecord::Schema.define(version: 20170428152226) do
   end
 
   create_table "stress_results", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.text     "times",      limit: 65535
     t.integer  "user_id"
     t.integer  "misses"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
-    t.text     "times",      limit: 65535
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

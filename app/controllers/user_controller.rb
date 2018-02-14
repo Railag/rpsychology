@@ -1,7 +1,8 @@
 class UserController < ApplicationController
   include BCrypt
 
-  protect_from_forgery except: [:create, :login, :startup_login, :statistics, :results_reaction, :results_volume, :results_complex, :results_stability, :results_focusing, :results_stress, :fcm_token, :send_pns_to_everyone, :send_pns_to_group]
+  protect_from_forgery except: [:create, :login, :startup_login, :statistics, :results_reaction, :results_volume, :results_complex, :results_stability, :results_focusing,
+                                :results_stress, :results_english, :fcm_token, :send_pns_to_everyone, :send_pns_to_group]
 
   before_action :generate_authentication_token, only: :create
   before_action :encrypt_password, only: :create
@@ -35,13 +36,15 @@ class UserController < ApplicationController
       r4 = FocusingResult.where(user_id: user.id).to_a
       r5 = StabilityResult.where(user_id: user.id).to_a
       r6 = StressResult.where(user_id: user.id).to_a
+      r7 = EnglishResult.where(user_id: user.id).to_a
 
       render json: {reaction_results: r1.as_json(:except => [:user_id, :created_at, :updated_at]),
                     complex_results: r2.as_json(:except => [:user_id, :created_at, :updated_at]),
                     volume_results: r3.as_json(:except => [:user_id, :created_at, :updated_at]),
                     focusing_results: r4.as_json(:except => [:user_id, :created_at, :updated_at]),
                     stability_results: r5.as_json(:except => [:user_id, :created_at, :updated_at]),
-                    stress_results: r6.as_json(:except => [:user_id, :created_at, :updated_at])}
+                    stress_results: r6.as_json(:except => [:user_id, :created_at, :updated_at]),
+                    english_results: r7.as_json(:except => [:user_id, :created_at, :updated_at])}
     #rescue ActiveRecord::RecordNotUnique
     #  render json: t(:user_login_exists_error)
     end
@@ -85,6 +88,13 @@ class UserController < ApplicationController
   def results_volume
     begin
       new_result = VolumeResult.create(volume_params)
+      render json: t(:results_saved_ok)
+    end
+  end
+
+  def results_english
+    begin
+      new_result = EnglishResult.create(english_params)
       render json: t(:results_saved_ok)
     end
   end
@@ -262,6 +272,11 @@ class UserController < ApplicationController
   private
   def volume_params
     params.permit(:user_id, :wins, :fails, :misses)
+  end
+
+  private
+  def english_params
+    params.permit(:user_id, :errors_value, :times => [], :words => [])
   end
 
   private
