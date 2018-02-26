@@ -2,7 +2,7 @@ class UserController < ApplicationController
   include BCrypt
 
   protect_from_forgery except: [:create, :login, :startup_login, :statistics, :results_reaction, :results_volume, :results_complex, :results_stability, :results_focusing,
-                                :results_stress, :results_english, :fcm_token, :send_pns_to_everyone, :send_pns_to_group]
+                                :results_stress, :results_english, :results_accelerometer, :fcm_token, :send_pns_to_everyone, :send_pns_to_group]
 
   before_action :generate_authentication_token, only: :create
   before_action :encrypt_password, only: :create
@@ -45,8 +45,24 @@ class UserController < ApplicationController
                     stability_results: r5.as_json(:except => [:user_id, :created_at, :updated_at]),
                     stress_results: r6.as_json(:except => [:user_id, :created_at, :updated_at]),
                     english_results: r7.as_json(:except => [:user_id, :created_at, :updated_at])}
-    #rescue ActiveRecord::RecordNotUnique
-    #  render json: t(:user_login_exists_error)
+      #rescue ActiveRecord::RecordNotUnique
+      #  render json: t(:user_login_exists_error)
+    end
+  end
+
+  def accelerometer
+    begin
+      user = User.find_by_id(statistics_params[:user_id])
+      if user.blank?
+        render json: t(:no_user_found)
+        return
+      end
+
+      r = AccelerometerResult.where(user_id: user.id).to_a
+
+      render json: {accelerometer_results: r.as_json(:except => [:user_id, :created_at, :updated_at])}
+      #rescue ActiveRecord::RecordNotUnique
+      #  render json: t(:user_login_exists_error)
     end
   end
 
@@ -95,6 +111,13 @@ class UserController < ApplicationController
   def results_english
     begin
       new_result = EnglishResult.create(english_params)
+      render json: t(:results_saved_ok)
+    end
+  end
+
+  def results_accelerometer
+    begin
+      new_result = AccelerometerResult.create(accelerometer_params)
       render json: t(:results_saved_ok)
     end
   end
@@ -277,6 +300,10 @@ class UserController < ApplicationController
   private
   def english_params
     params.permit(:user_id, :errors_value, :times => [], :words => [])
+  end
+
+  private def accelerometer_params
+    params.permit(:user_id, :x => [], :y => [], :z => [])
   end
 
   private
