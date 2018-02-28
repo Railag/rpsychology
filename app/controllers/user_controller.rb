@@ -2,7 +2,7 @@ class UserController < ApplicationController
   include BCrypt
 
   protect_from_forgery except: [:create, :login, :startup_login, :statistics, :results_reaction, :results_volume, :results_complex, :results_stability, :results_focusing,
-                                :results_stress, :results_english, :results_accelerometer, :fcm_token, :send_pns_to_everyone, :send_pns_to_group]
+                                :results_stress, :results_english, :accelerometer, :results_accelerometer, :fcm_token, :send_pns_to_everyone, :send_pns_to_group]
 
   before_action :generate_authentication_token, only: :create
   before_action :encrypt_password, only: :create
@@ -58,7 +58,7 @@ class UserController < ApplicationController
         return
       end
 
-      r = AccelerometerResult.where(user_id: user.id).to_a
+      r = AccelerometerResult.where(user_id: user.id).last(10).to_a # last 10 records
 
       render json: {accelerometer_results: r.as_json(:except => [:user_id, :created_at, :updated_at])}
       #rescue ActiveRecord::RecordNotUnique
@@ -302,7 +302,8 @@ class UserController < ApplicationController
     params.permit(:user_id, :errors_value, :times => [], :words => [])
   end
 
-  private def accelerometer_params
+  private
+  def accelerometer_params
     params.permit(:user_id, :x => [], :y => [], :z => [])
   end
 
