@@ -58,7 +58,7 @@ class UserController < ApplicationController
         return
       end
 
-      r = AccelerometerResult.where(user_id: user.id).last(10).to_a # last 10 records
+      r = AccelerometerResult.where(user_id: user.id).last(1).to_a # last 1 record with 10 events
 
       render json: {accelerometer_results: r.as_json(:except => [:user_id, :created_at, :updated_at])}
       #rescue ActiveRecord::RecordNotUnique
