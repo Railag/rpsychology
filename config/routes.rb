@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   scope '/user', controller: 'user' do
     get '/get', action: 'get'
-    post '/update', action:'update'
+    post '/update', action: 'update'
     post '/login', action: 'login'
     post '/startup_login', action: 'startup_login'
     post '/fcm_token', action: 'fcm_token'
@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     post '/results_volume', action: 'results_volume'
     post '/results_english', action: 'results_english'
     post '/results_accelerometer', action: 'results_accelerometer'
+    post '/results_ram_volume', action: 'results_ram_volume'
     post '/statistics', action: 'statistics'
     post '/accelerometer', action: 'accelerometer'
     post '/send_pns_to_group', action: 'send_pns_to_group'
