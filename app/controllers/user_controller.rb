@@ -2,7 +2,7 @@ class UserController < ApplicationController
   include BCrypt
 
   protect_from_forgery except: [:create, :login, :startup_login, :statistics, :results_reaction, :results_volume, :results_complex, :results_stability, :results_focusing,
-                                :results_stress, :results_english, :accelerometer, :results_accelerometer, :results_ram_volume, :fcm_token, :send_pns_to_everyone, :send_pns_to_group]
+                                :results_stress, :results_english, :accelerometer, :results_accelerometer, :results_ram_volume, :results_attention_volume, :fcm_token, :send_pns_to_everyone, :send_pns_to_group]
 
   before_action :generate_authentication_token, only: :create
   before_action :encrypt_password, only: :create
@@ -38,6 +38,7 @@ class UserController < ApplicationController
       r6 = StressResult.where(user_id: user.id).to_a
       r7 = EnglishResult.where(user_id: user.id).to_a
       r8 = RamVolumeResult.where(user_id: user.id).to_a
+      r9 = AttentionVolumeResult.where(user_id: user.id).to_a
 
       render json: {reaction_results: r1.as_json(:except => [:user_id, :created_at, :updated_at]),
                     complex_results: r2.as_json(:except => [:user_id, :created_at, :updated_at]),
@@ -46,7 +47,8 @@ class UserController < ApplicationController
                     stability_results: r5.as_json(:except => [:user_id, :created_at, :updated_at]),
                     stress_results: r6.as_json(:except => [:user_id, :created_at, :updated_at]),
                     english_results: r7.as_json(:except => [:user_id, :created_at, :updated_at]),
-                    ram_volume_results: r8.as_json(:except => [:user_id, :created_at, :updated_at])
+                    ram_volume_results: r8.as_json(:except => [:user_id, :created_at, :updated_at]),
+                    attention_volume_results: r9.as_json(:except => [:user_id, :created_at, :updated_at])
       }
       #rescue ActiveRecord::RecordNotUnique
       #  render json: t(:user_login_exists_error)
@@ -128,6 +130,13 @@ class UserController < ApplicationController
   def results_ram_volume
     begin
       new_result = RamVolumeResult.create(ram_volume_params)
+      render json: t(:results_saved_ok)
+    end
+  end
+
+  def results_attention_volume
+    begin
+      new_result = AttentionVolumeResult.create(attention_volume_params)
       render json: t(:results_saved_ok)
     end
   end
@@ -319,6 +328,11 @@ class UserController < ApplicationController
 
   private
   def ram_volume_params
+    params.permit(:user_id, :time, :wins)
+  end
+
+  private
+  def attention_volume_params
     params.permit(:user_id, :time, :wins)
   end
 
