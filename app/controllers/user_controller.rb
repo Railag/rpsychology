@@ -1,7 +1,7 @@
 class UserController < ApplicationController
   include BCrypt
 
-  protect_from_forgery except: [:create, :login, :startup_login, :statistics, :results_reaction, :results_volume, :results_complex, :results_stability, :results_focusing,
+  protect_from_forgery except: [:create, :login, :startup_login, :statistics, :statistics_global, :results_reaction, :results_volume, :results_complex, :results_stability, :results_focusing,
                                 :results_stress, :results_english, :accelerometer, :results_accelerometer, :results_ram_volume, :results_attention_volume, :fcm_token, :send_pns_to_everyone, :send_pns_to_group]
 
   before_action :generate_authentication_token, only: :create
@@ -52,6 +52,33 @@ class UserController < ApplicationController
       }
       #rescue ActiveRecord::RecordNotUnique
       #  render json: t(:user_login_exists_error)
+    end
+  end
+
+  def statistics
+    begin
+
+      r1 = ReactionResult.all.to_a
+      r2 = ComplexResult.all.to_a
+      r3 = VolumeResult.all.to_a
+      r4 = FocusingResult.all.to_a
+      r5 = StabilityResult.all.to_a
+      r6 = StressResult.all.to_a
+      r7 = EnglishResult.all.to_a
+      r8 = RamVolumeResult.all.to_a
+      r9 = AttentionVolumeResult.all.to_a
+
+      render json: {reaction_results: r1.as_json(:except => [:user_id, :created_at, :updated_at]),
+                    complex_results: r2.as_json(:except => [:user_id, :created_at, :updated_at]),
+                    volume_results: r3.as_json(:except => [:user_id, :created_at, :updated_at]),
+                    focusing_results: r4.as_json(:except => [:user_id, :created_at, :updated_at]),
+                    stability_results: r5.as_json(:except => [:user_id, :created_at, :updated_at]),
+                    stress_results: r6.as_json(:except => [:user_id, :created_at, :updated_at]),
+                    english_results: r7.as_json(:except => [:user_id, :created_at, :updated_at]),
+                    ram_volume_results: r8.as_json(:except => [:user_id, :created_at, :updated_at]),
+                    attention_volume_results: r9.as_json(:except => [:user_id, :created_at, :updated_at])
+      }
+      
     end
   end
 

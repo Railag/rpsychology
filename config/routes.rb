@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     post '/results_ram_volume', action: 'results_ram_volume'
     post '/results_attention_volume', action: 'results_attention_volume'
     post '/statistics', action: 'statistics'
+    post '/statistics_global', action: 'statistics_global'
     post '/accelerometer', action: 'accelerometer'
     post '/send_pns_to_group', action: 'send_pns_to_group'
     post '/send_pns_to_everyone', action: 'send_pns_to_everyone'
