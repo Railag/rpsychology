@@ -55,7 +55,7 @@ class UserController < ApplicationController
     end
   end
 
-  def statistics
+  def statistics_global
     begin
 
       r1 = ReactionResult.all.to_a
@@ -78,7 +78,7 @@ class UserController < ApplicationController
                     ram_volume_results: r8.as_json(:except => [:user_id, :created_at, :updated_at]),
                     attention_volume_results: r9.as_json(:except => [:user_id, :created_at, :updated_at])
       }
-      
+
     end
   end
 
